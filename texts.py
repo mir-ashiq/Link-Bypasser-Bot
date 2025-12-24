@@ -114,6 +114,11 @@ shortnertext = """__- igg-games \n\
 - lolshort \n\
 - tnvalue \n\
 - vipurl \n\
+- link1s \n\
+- publicearn \n\
+- megaurl \n\
+- shrinke \n\
+- fc.lc \n\
 __"""
 
 

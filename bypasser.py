@@ -718,6 +718,7 @@ def getfinal(domain, url, sess):
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-User": "?1",
     }
 
     # print("waiting 10 secs")
@@ -2450,6 +2451,52 @@ def kingurl(url):
 
 
 #####################################################################################################
+# New & Updated Bypassers
+
+def adlinkfly_generic(url):
+    client = cloudscraper.create_scraper(allow_brotli=False)
+    try:
+        resp = client.get(url)
+        url = resp.url
+        soup = BeautifulSoup(resp.content, "html.parser")
+
+        try:
+            inputs = soup.find(id="go-link").find_all(name="input")
+        except:
+            return "Incorrect Link"
+
+        data = {input.get("name"): input.get("value") for input in inputs}
+
+        time.sleep(7)
+        headers = {"x-requested-with": "XMLHttpRequest"}
+
+        parsed = urlparse(url)
+        domain = f"{parsed.scheme}://{parsed.netloc}"
+
+        r = client.post(f"{domain}/links/go", data=data, headers=headers)
+        try:
+            return r.json()["url"]
+        except:
+            return "Something went wrong :("
+    except Exception as e:
+        return f"Error: {e}"
+
+def link1s(url):
+    return adlinkfly_generic(url)
+
+def publicearn(url):
+    return adlinkfly_generic(url)
+
+def megaurl(url):
+    return adlinkfly_generic(url)
+
+def shrinke(url):
+    return adlinkfly_generic(url)
+
+def fclc(url):
+    return adlinkfly_generic(url) # Often similar structure
+
+#####################################################################################################
 # helpers
 
 
@@ -2574,12 +2621,12 @@ def shortners(url):
         return sharer_pw(url, Laravel_Session, XSRF_TOKEN)
 
     # gdtot url
-    elif "gdtot.cfd" in url:
+    elif "gdtot" in url and "new1" not in url:
         print("entered gdtot: ", url)
         return gdtot(url)
 
     # adfly
-    elif "https://adf.ly/" in url:
+    elif "adf.ly" in url:
         print("entered adfly: ", url)
         out = adfly(url)
         return out["bypassed_url"]
@@ -2756,6 +2803,31 @@ def shortners(url):
     elif "https://kingurl.in/" in url:
         print("entered kingurl:", url)
         return kingurl(url)
+
+    # link1s
+    elif "link1s" in url:
+        print("entered link1s: ", url)
+        return link1s(url)
+
+    # publicearn
+    elif "publicearn" in url:
+        print("entered publicearn: ", url)
+        return publicearn(url)
+
+    # megaurl
+    elif "megaurl" in url:
+        print("entered megaurl: ", url)
+        return megaurl(url)
+
+    # shrinke
+    elif "shrinke" in url:
+        print("entered shrinke: ", url)
+        return shrinke(url)
+
+    # fc.lc
+    elif "fc.lc" in url:
+        print("entered fclc: ", url)
+        return fclc(url)
 
     # htpmovies sharespark cinevood
     elif (
