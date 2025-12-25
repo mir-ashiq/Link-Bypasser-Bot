@@ -2416,9 +2416,9 @@ def bitly_tinyurl(url: str) -> str:
 
 
 def thinfi(url: str) -> str:
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, "html.parser").p.a.get("href")
     try:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser").p.a.get("href")
         return soup
     except:
         return "Something went wrong :("
